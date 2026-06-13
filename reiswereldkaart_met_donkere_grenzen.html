@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Onze Reiswereld</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<style>
+  body { margin:0; }
+  #map { height: 100vh; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+var map = L.map('map').setView([20,0],3);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OpenStreetMap & CartoDB'
+}).addTo(map);
+
+var solo = ["Tunisia","India","Thailand","Nepal","Italy","France","Germany","United Kingdom","Belgium","Croatia","Denmark","Greece","Hungary","Malta","Netherlands","Mexico","Portugal"];
+var together = ["Czechia","Czech Republic","Poland","Spain"];
+
+function getStyle(name){
+  if(together.includes(name)){
+    return {
+      color:'#9ca3af', // donkerdere grens
+      weight:1,
+      fillColor:'#ff6b81',
+      fillOpacity:0.4
+    };
+  }
+  if(solo.includes(name)){
+    return {
+      color:'#9ca3af', // donkerdere grens
+      weight:1,
+      fillColor:'#8e7dff',
+      fillOpacity:0.4
+    };
+  }
+  return { opacity: 0, fillOpacity: 0 };
+}
+
+fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+.then(res=>res.json())
+.then(data=>{
+  L.geoJSON(data,{
+    style: function(feature){
+      return getStyle(feature.properties.name);
+    },
+    onEachFeature: function(feature, layer){
+      var name = feature.properties.name;
+
+      if(together.includes(name)){
+        var center = layer.getBounds().getCenter();
+        L.marker([center.lat+1, center.lng], {
+          icon: L.divIcon({
+            html: '<div style="font-size:10px">❤️</div>',
+            className: '',
+            iconSize: [10,10]
+          })
+        }).addTo(map);
+      }
+    }
+  }).addTo(map);
+});
+</script>
+</body>
+</html>
