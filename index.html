@@ -1,1 +1,90 @@
-<!DOCTYPE html>2<html>3<head>4<meta charset="utf-8" />5<title>Onze Reiswereld</title>6<meta name="viewport" content="width=device-width, initial-scale=1.0">7https://unpkg.com/leaflet/dist/leaflet.css8https://unpkg.com/leaflet/dist/leaflet.jsscript>9<style>10  body { margin:0; }11  #map { height: 100vh; }12</style>13</head>14<body>15 16<div id="map"></div>17 18<script>19// Kaart20var map = L.map('map').setView([20,0],3);21 22L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);23 24// DATA25var jij = ["Denmark","Tunisia","Mexico"];26 27var vriend = [28  "Egypt","Turkey","United Arab Emirates","China",29  "Philippines","Vietnam","Latvia","Montenegro"30];31 32var allebei = [33  "Malta","Croatia","Luxembourg","Portugal","France",34  "United Kingdom","Thailand","Belgium","Austria",35  "Italy","India","Nepal","Hungary","Greece"36];37 38var samen = [39  "Germany","Spain","Poland",40  "Czechia","Czech Republic"41];42 43// Styling44function getStyle(name){45  if(samen.includes(name)){46    return {47      color:'#6b7280',48      weight:1.2,49      fillColor:'#ff6b81',50      fillOpacity:0.451    };52  }53  if(allebei.includes(name)){54    return {55      color:'#6b7280',56      weight:1.2,57      fillColor:'#ff9bb0',58      fillOpacity:0.459    };60  }61  if(jij.includes(name)){62    return {63      color:'#6b7280',64      weight:1.2,65      fillColor:'#8e7dff',66      fillOpacity:0.467    };68  }69  if(vriend.includes(name)){70    return {71      color:'#6b7280',72      weight:1.2,73      fillColor:'#7ec8ff',74      fillOpacity:0.475    };76  }77 78  return {79    color:'#9ca3af',80    weight:0.4,81    fillOpacity:082  };83}84 85// Kaart laden86fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')87.then(res => res.json())88.then(data => {89 90  L.geoJSON(data, {91    style: function(feature){92      return getStyle(feature.properties.name);93    },94 95    onEachFeature: function(feature, layer){96      var name = feature.properties.name;97 98      // Hartjes alleen bij samen99      if(samen.includes(name)){100        var center = layer.getBounds().getCenter();101 102        L.marker([center.lat + 1, center.lng], {103          icon: L.divIcon({104            html: '<div style="font-size:11px">❤️</div>'105          })106        }).addTo(map);107      }108    }109 110  }).addTo(map);111 112});113</script>114 115</body>116</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Onze Reiswereld</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<script>
+
+var map = L.map('map').setView([20, 0], 3);
+
+L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+).addTo(map);
+
+var jij = [
+  "Denmark",
+  "Tunisia",
+  "Mexico"
+];
+
+var vriend = [
+  "Egypt",
+  "Turkey",
+  "United Arab Emirates",
+  "China",
+  "Philippines",
+  "Vietnam",
+  "Latvia",
+  "Montenegro"
+];
+
+var allebei = [
+  "Malta",
+  "Croatia",
+  "Luxembourg",
+  "Portugal",
+  "France",
+  "United Kingdom",
+  "Thailand",
+  "Belgium",
+  "Austria",
+  "Italy",
+  "India",
+  "Nepal",
+  "Hungary",
+  "Greece"
+];
+
+var samen = [
+  "Germany",
+  "Spain",
+  "Poland",
+  "Czechia",
+  "Czech Republic"
+];
+
+document.body.insertAdjacentHTML(
+  "beforeend",
+  '<div style="position:absolute;top:10px;right:10px;background:white;padding:10px;border-radius:8px;font-family:Arial;font-size:12px;z-index:1000;">' +
+  '<div><span style="display:inline-block;width:12px;height:12px;background:#8e7dff;"></span> Jij</div>' +
+  '<div><span style="display:inline-block;width:12px;height:12px;background:#7ec8ff;"></span> Nick</div>' +
+  '<div><span style="display:inline-block;width:12px;height:12px;background:#ff9bb0;"></span> Allebei geweest</div>' +
+  '<div><span style="display:inline-block;width:12px;height:12px;background:#ff6b81;"></span> Samen geweest ❤️</div>' +
+  '</div>'
+);
+
+</script>
+
+</body>
+</html>
