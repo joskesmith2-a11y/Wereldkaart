@@ -2,89 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Onze Reiswereld</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <style>
-    body {
-      margin: 0;
-    }
-
-    #map {
-      height: 100vh;
-      width: 100%;
-    }
-  </style>
+  <title>Test</title>
 </head>
-
 <body>
-
-<div id="map"></div>
-
-<script>
-
-var map = L.map('map').setView([20, 0], 3);
-
-L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
-).addTo(map);
-
-var jij = [
-  "Denmark",
-  "Tunisia",
-  "Mexico"
-];
-
-var vriend = [
-  "Egypt",
-  "Turkey",
-  "United Arab Emirates",
-  "China",
-  "Philippines",
-  "Vietnam",
-  "Latvia",
-  "Montenegro"
-];
-
-var allebei = [
-  "Malta",
-  "Croatia",
-  "Luxembourg",
-  "Portugal",
-  "France",
-  "United Kingdom",
-  "Thailand",
-  "Belgium",
-  "Austria",
-  "Italy",
-  "India",
-  "Nepal",
-  "Hungary",
-  "Greece"
-];
-
-var samen = [
-  "Germany",
-  "Spain",
-  "Poland",
-  "Czechia",
-  "Czech Republic"
-];
-
-document.body.insertAdjacentHTML(
-  "beforeend",
-  '<div style="position:absolute;top:10px;right:10px;background:white;padding:10px;border-radius:8px;font-family:Arial;font-size:12px;z-index:1000;">' +
-  '<div><span style="display:inline-block;width:12px;height:12px;background:#8e7dff;"></span> Jij</div>' +
-  '<div><span style="display:inline-block;width:12px;height:12px;background:#7ec8ff;"></span> Nick</div>' +
-  '<div><span style="display:inline-block;width:12px;height:12px;background:#ff9bb0;"></span> Allebei geweest</div>' +
-  '<div><span style="display:inline-block;width:12px;height:12px;background:#ff6b81;"></span> Samen geweest ❤️</div>' +
-  '</div>'
-);
-
-</script>
-
+  <h1>Het werkt!</h1>
 </body>
 </html>
